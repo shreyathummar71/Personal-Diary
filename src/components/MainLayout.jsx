@@ -33,7 +33,7 @@ const MainLayout = () => {
       </div>
       <Header />
       <Outlet />
-      <div className=" bg-[#704c3c] text-center text-white font-aclonica">
+      <div className=" bg-[#704c3c] text-center text-white font-aclonica p-4">
         My Diary – Always Be Happy
       </div>
       <Footer />
