@@ -14,3 +14,9 @@
 .btn-secondary:hover {
   @apply bg-[#2F1409];
 }
+.parallax {
+  background-image: url("images/banner.jpeg");
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+}

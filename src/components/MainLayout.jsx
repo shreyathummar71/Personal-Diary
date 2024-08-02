@@ -6,7 +6,7 @@ const MainLayout = () => {
   return (
     <>
       <div className="bg-primary">
-        <img src="images/banner.jpeg" alt="top banner" className="w-full" />
+        <div className="parallax h-screen flex items-center justify-center"></div>
         <div className="p-5">
           <div className="relative float-start w-full">
             <img
