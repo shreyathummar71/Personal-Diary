@@ -1,65 +1,54 @@
-import { useState, useEffect } from "react";
-import DiaryDetailsModal from "./DiaryDetailsModal";
+import DiaryEntryCard from './DiaryEntryCard';
 
-const AllDiary = () => {
-  const [entries, setEntries] = useState([]);
-  const [selectedEntry, setSelectedEntry] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  useEffect(() => {
-    const storedEntries =
-      JSON.parse(localStorage.getItem("diaryEntries")) || [];
-    storedEntries.sort((a, b) => new Date(b.date) - new Date(a.date));
-    setEntries(storedEntries);
-  }, []);
-
-  const handleTitleClick = (entry) => {
-    setSelectedEntry(entry);
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setSelectedEntry(null);
-  };
-
+const AllDiary = ({
+  entries,
+  onEdit,
+  onRemove,
+  onView,
+  handleAddEntry,
+  searchDate,
+  setSearchDate,
+  searchTerm,
+  setSearchTerm,
+  handleSearch
+}) => {
   return (
     <div className="container mx-auto p-4 bg-secondary">
+      <div className="mb-4">
+      <img
+            src="images/calendar.png"
+            className="float-start h-9 w-9"
+            alt="Instagram"
+          />
+        <button onClick={handleAddEntry} className="btn-primary font-aclonica">Add Entry</button>
+        <div className="float-end flex">
+          <input
+            type="date"
+            value={searchDate}
+            onChange={(e) => setSearchDate(e.target.value)}
+            className=" p-2 rounded-full mr-2 bg-[#2F1409] bg-opacity-50 text-white font-aclonica "
+          />
+          <input
+            type="text"
+            placeholder="Search..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className=" p-2 rounded-full mr-2 bg-[#2F1409] bg-opacity-50 text-white font-aclonica"
+          />
+          <button onClick={handleSearch} className="btn-primary font-aclonica">Search</button>
+        </div>
+      </div>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {entries.map((entry) => (
-          <div
+          <DiaryEntryCard
             key={entry.id}
-            className="card bg-primary text-white p-4 rounded-lg shadow-lg mb-4"
-          >
-            <h3
-              className="text-xl mb-2 font-aclonica cursor-pointer"
-              onClick={() => handleTitleClick(entry)}
-            >
-              {entry.title}
-            </h3>
-            <p className="font-aclonica pb-2">
-              {new Date(entry.date).toLocaleDateString()}
-            </p>
-            {entry.image && (
-              <img
-                src={entry.image}
-                alt={entry.title}
-                className="rounded-lg mb-4"
-              />
-            )}
-            <p className="text-white font-aclonica">content</p>
-            <button className="btn-secondary float-end ml-2 font-cardo">
-              Remove
-            </button>
-            <button className="btn-secondary float-end font-cardo">Edit</button>
-          </div>
+            entry={entry}
+            onEdit={onEdit}
+            onRemove={onRemove}
+            onView={onView}
+          />
         ))}
       </div>
-      <DiaryDetailsModal
-        entry={selectedEntry}
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
-      />
     </div>
   );
 };
