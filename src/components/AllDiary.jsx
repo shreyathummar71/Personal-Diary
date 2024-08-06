@@ -17,7 +17,7 @@ const AllDiary = ({
       <div className="mb-4">
       <img
             src="images/calendar.png"
-            className="float-start h-9 w-9"
+            className="float-start h-9 w-9 ml-2"
             alt="Instagram"
           />
         <button onClick={handleAddEntry} className="btn-primary font-aclonica">Add Entry</button>

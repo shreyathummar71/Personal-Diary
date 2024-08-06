@@ -20,3 +20,10 @@
   background-size: cover;
   background-position: center;
 }
+
+.myfavorite {
+  background-image: url(../public/images/bg\ 3.jpg);
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+}
