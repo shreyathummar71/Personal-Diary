@@ -34,12 +34,29 @@ const EntryModal = ({ isOpen, onClose, onSave, existingEntry, isViewMode }) => {
     }
   };
 
+  // Handle file input change
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   if (!isOpen) return null; // Do not render if modal is not open
 
   return (
     <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center">
       <div className="bg-[#2F1409] bg-opacity-75  p-4 rounded-md shadow-md">
-        <h2 className="text-2xl text-white font-aclonica ml-4 mb-6">{isViewMode ? 'View Entry' : existingEntry ? 'Edit Entry' : 'Add New Entry'}</h2>
+        <h2 className="text-2xl text-[#C4A887] font-aclonica ml-2 mb-6">{isViewMode ? 'View Entry' : existingEntry ? 'Edit Entry' : 'Add New Entry'}</h2>
+        <label
+                htmlFor="Title"
+                className=" block mb-1 font-aclonica text-[#C4A887] font-semibold text-lg  max-w-full">
+                Title
+              </label>
         <input 
           type="text" 
           placeholder="Title" 
@@ -48,6 +65,12 @@ const EntryModal = ({ isOpen, onClose, onSave, existingEntry, isViewMode }) => {
           className="border p-2 mb-2 w-full" 
           disabled={isViewMode} 
         />
+          <label
+                htmlFor="Date"
+                className="  block mb-1 font-aclonica text-[#C4A887] font-semibold text-lg  max-w-full"
+              >
+                Date
+              </label>
         <input 
           type="date" 
           value={date} 
@@ -55,14 +78,26 @@ const EntryModal = ({ isOpen, onClose, onSave, existingEntry, isViewMode }) => {
           className="border p-2 mb-2 w-full" 
           disabled={isViewMode} 
         />
+          <label
+                htmlFor="Uplode Image"
+                className="  block mb-1 font-aclonica text-[#C4A887] font-semibold text-lg  max-w-full"
+              >
+                Uplode Image
+              </label>
         <input 
-          type="text" 
-          placeholder="Image URL" 
-          value={image} 
-          onChange={(e) => setImage(e.target.value)} 
-          className="border p-2 mb-2 w-full" 
+          type="file" 
+          accept="image/*" 
+          onChange={handleFileChange} 
+          className="border p-2 mb-2 w-full text-white" 
           disabled={isViewMode} 
         />
+        {image && <img src={image} alt="Selected" className="mb-2 w-full h-32" />}
+        <label
+                htmlFor="Content"
+                className="mb-1 font-aclonica text-[#C4A887] font-semibold text-lg  max-w-full"
+              >
+                Content
+              </label>
         <textarea 
           placeholder="Content" 
           value={content} 
